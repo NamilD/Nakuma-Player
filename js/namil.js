@@ -5,6 +5,10 @@ var files;
 var url;
 var audio;
 var audioVolumeRatio=0;
+var songListArray;
+var repeatbutton=false;
+var shufflebutton=false;
+var resetAudiosource=true;
 
 function init(){
     loadPlayer();
@@ -17,14 +21,30 @@ function loadPlayer(){
     audio.autoplay = true;
     document.body.appendChild(audio);
     
-    var context = new webkitAudioContext();
+    var context = null;
+    usingWebAudio = true;
+    if (typeof AudioContext !== 'undefined') {
+        context = new AudioContext();
+    } else if (typeof webkitAudioContext !== 'undefined') {
+        context = new webkitAudioContext();
+    } else {
+        usingWebAudio = false;
+    }
+    
+    if(!usingWebAudio){
+        alert("Not supported");
+    }
+    
     var source = context.createMediaElementSource(audio);
     gainNode = context.createGain();
     source.connect(gainNode);
     gainNode.connect(context.destination);
 }
 function loadAudioFile(number){
-    var f=files[number];
+    console.log("loadaudiofile");
+    var temp=songListArray[number];
+    var f=files[temp];
+    console.log("file: "+f.name);
     if(window.createObjectURL){
         url = window.createObjectURL(f)
     }else if(window.createBlobURL){
@@ -36,9 +56,13 @@ function loadAudioFile(number){
     }
     
     audio.src = url;
+    audio.load();
+    resetAudiosource=false;
+    console.log(url);
 }
 function play(){
-    if(audio.src==""){       //there is no audio file loaded in to the audio element
+    ///if(audio.src==null){       //there is no audio file loaded in to the audio element
+    if(resetAudiosource){       //there is no audio file loaded in to the audio element
         loadAudioFile(currentSongNumber);
     }
     playing=true;
@@ -48,16 +72,10 @@ function play(){
 }
 function resetPlay(){
     resetAudioSource();
-    setRandomSongNumber(0); //set current song song to 0
+    currentSongNumber=0;
     play();
 }
-function changeSong(number){
-    if(currentSongNumber!=number){
-        resetAudioSource();
-        setRandomSongNumber(number);
-        play();
-    }
-}
+
 function previous(){
     resetAudioSource();     //reset the source in to null url
     setPreviousSongNumber();
@@ -92,7 +110,6 @@ function fastforward() {
             
 function setNextSongNumber(){
     if(files.length>1){
-        console.log("current"+currentSongNumber);
         currentSongNumber= (currentSongNumber+1)%files.length;
     }
 }
@@ -101,19 +118,24 @@ function setPreviousSongNumber(){
         currentSongNumber= (currentSongNumber-1+files.length)%files.length;
     }
 }
-function setRandomSongNumber(number){
-    currentSongNumber=number%files.length;
-    
-}
+
 function resetAudioSource(){
-    audio.src=null;
+    //audio.src=null;
+    resetAudiosource=true;
 }
 function addMediaEvents(){
     audio.addEventListener('ended', endedMedia);
 }
 function endedMedia(){
+    
     if(playing){
-        next(); 
+        if((!repeatbutton)&&(currentSongNumber==(files.length-1))){
+            next();
+            updateButtons('stop');
+            stop();        
+        }else{
+            next();    
+        }
     }
 }
 function setMediaCurrentTime(audiolength){
@@ -121,19 +143,19 @@ function setMediaCurrentTime(audiolength){
 }
 function setMediaTitle($timer){
     $mediaTitle=document.getElementById('media-title');
-    var defaultitle_length=25;
+    var defaultitle_length=18;
     if($mediaTitle!=null){
         
         var songTitle;
-        if(JSONObject!=null){
-            songTitle=JSONObject.Tags[currentSongNumber].title;
+        if(false){
+            songTitle=JSONObject.Tags[songListArray[currentSongNumber]].title;
         }else{                
-            songTitle=files[currentSongNumber].name;
+            songTitle=files[songListArray[currentSongNumber]].name;
         }
         var songLength=songTitle.length;
         
         if(songLength<=defaultitle_length){     //default output string size is 20
-            if(JSONObject!=null){
+            if(false){
                 $mediaTitle.innerHTML=JSONObject.Tags[currentSongNumber].title;
             }else{                
                 $mediaTitle.innerHTML=files[currentSongNumber].name;
@@ -148,17 +170,18 @@ function setMediaTitle($timer){
             for (var j = i; j< i+defaultitle_length+1; ++j){
                 if(j==i&&songTitle.charAt(j)==" "){
                     
-                    outputText=outputText+'<span>&nbsp;</span>';
+                    outputText=outputText+'&nbsp;';
                                         
                 }
                 else{
                     var x=j%(defaultitle_length*2);
                 
-                    outputText=outputText+'<span>'+songTitle.charAt(x)+'</span>';
+                    outputText=outputText+""+songTitle.charAt(x);
                 }
             }
             //$mediaTitle.innerHTML=outputText;
             $("#media-title").html(outputText);
+        //console.log(outputText);
         }
         
         
@@ -169,9 +192,52 @@ function setMediaTitle($timer){
 }
 function setFile(file){
     this.files=file;
+    songListArray=createArray(files.length);
 }
 
 function setTableRow(SongNumber){
-    console.log(SongNumber);
+//console.log(SongNumber);
 //$('tr:nth-child('+(SongNumber+1)+') td').addClass("highlight");
+}
+
+function setRepeatButton(value){
+    repeatbutton=value;
+}
+function setShuffleButton(value){
+    shufflebutton=value;
+    songListArray=createArray(files.length);
+    console.log(songListArray);
+}
+
+function createArray(length){
+    var arr=[];
+    for (var i=0;i<length;++i){
+        arr[i]=i;
+    }
+    if(shufflebutton){
+        arr=shuffle(arr)
+    }
+    return arr;
+}
+
+function shuffle(array) {
+    var currentIndex = array.length
+    , temporaryValue
+    , randomIndex
+    ;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
 }
