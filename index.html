@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+
+        <!--
+
+            Resources:
+            1. MP3  ID3 Tag reader:-       https://github.com/aadsm/JavaScript-ID3-Reader
+
+            2. Inline blocks:-      http://css-tricks.com/fighting-the-space-between-inline-block-elements/
+
+        -->
+
+        <title>Nakuma Player</title>
+
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/jquery-2.0.3.js"></script>
+        <script src="js/id3.js"></script>
+        <script src="js/mediaplayer.js"></script>
+        <script src="js/namil.js"></script>
+
+    </head>
+
+    <body>
+        <div class="container">
+            <div id="content">
+                <div id="login-box" class="login-popup">
+                    <a href="#" id="file_input_close" class="close"><img src="images/close_pop.png" class="btn_close" onclick="fileInput_Close()" /></a>
+                    <form method="post" class="signin" action="#">
+                        <fieldset class="textbox">
+                            <label class="username">
+                                <span>Select Audio Files</span>
+                                <input id="file-input" type="file" multiple="true" accept="audio/*">
+                            </label>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="column1" class="column1"></div>
+        <div class="page-wrap">
+            <div id="mp-container" class="mp-container">
+                <div id="mp-seekbar-container" class="mp-seekbar-container">
+                    <input id="seekbar" type="range" name="rng" min="0" step="0.25" value="0" onchange="mediaTimeSet()" style="width: 100%">
+                </div>
+                <div id="mp-buttons-wrap" class="mp-buttons-wrap">
+                    <div id="mp-mediabuttons-container" class="mp-mediabuttons-container" >
+                        <nav>  
+                            <ul class="Player-buttons">
+                                <li><a href="#" id="btn-prev" class="btn-prev" ></a></li>
+                                <li><a href="#" id="btn-play" class="btn-play" ></a></li>
+                                <li><a href="#" id="btn-pause" class="btn-pause" ></a></li>
+                                <li><a href="#" id="btn-stop" class="btn-stop" ></a></li>
+                                <li><a href="#" id="btn-next" class="btn-next" ></a></li>
+
+                            </ul>
+                        </nav>
+                    </div>
+                    <div id="mp-volumebar-container" class="mp-volumebar-container" >
+                        <nav >
+
+                            <ul class="mp-volumebar-nav">
+                                <li><a href="#" class="icon-vol-min" ></a></li>
+                                <li><a href="#" class="icon-vol-normal"></a></li>
+                                <li><a href="#" class="icon-vol-max"></a></li>
+                                <li><input id="volumebar" type="range" name="rng" min="0" max="1" step="0.01" value="1"  style="width: 100%"></li>
+
+                            </ul>				
+                    </div>
+                    <div id="mp-otherButtons-container" class="mp-otherButtons-container">
+                        <nav class="mp-otherButtons-menubar">
+                            <ul>
+                                <li ><a href="#login-box" id="other_Button-open" class="other_Button-open"></a></li>  
+                            </ul>
+                    </div>
+                    <div id="mp-tmieline-container" class="mp-tmieline-container" >
+                        <a id="media-title" >Title</a>
+                        <ul class="mp-volumebar-nav" >
+                            <li><a id="media-duration" >00:00:00</a></li>
+                        </ul>
+                    </div> 
+                </div>
+                <font style="font-size: x-small; float: right; margin-right: -90px;">Namil Abeywickrama, University of Colombo school of computing. Version 1.0</font>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
