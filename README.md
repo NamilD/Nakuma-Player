@@ -3,7 +3,7 @@ Nakuma-Player
 
 HTML5 based Audio/Video player
 
-This is a mediaplayer that you don't need any mediaplayer software (Eg: Windows Media plpayer) to play your Audio/Video files which are in your HDD or Flash drive 
+This is a mediaplayer that you don't need any mediaplayer software (Eg: Windows Media player) to play your Audio/Video files which are in your HDD or Flash drive 
 
 * Size is less than 1 megabyte!
 
