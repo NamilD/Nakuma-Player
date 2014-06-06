@@ -1,0 +1,27 @@
+/* 
+    Document   : style
+    Created on : Mar 15, 2014, 10:08:20 AM
+    Author     : Namil
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.volumebar{
+    
+}
+body {
+  min-height: 350px;
+  padding-top: 80px;
+  padding-bottom: 95px;
+}
+
+.drop-panel {
+  border: 2px dashed #bbb;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 25px;
+  text-align: center;
+  color: #bbb;
+  margin: 5px;
+}

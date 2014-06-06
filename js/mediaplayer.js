@@ -40,7 +40,32 @@ $( document ).ready(function() {
             resetPlay();
         }
     } );
+    var dropZone = document.getElementById('drop_zone');
+    dropZone.addEventListener('dragover', handleDragOver, false);
+    dropZone.addEventListener('drop', handleFileSelect, false);
 });
+
+function handleFileSelect(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    var elems = evt.dataTransfer.files;
+    if(elems.length>0){
+        setFile(elems); // FileList object
+        fileSize=elems.length;
+        if(!button_activated){
+            addButtonEvents();
+            button_activated=true;
+        }
+        updateButtons('play');
+        resetPlay();
+    }
+}
+
+function handleDragOver(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = 'copy';
+}
 
 function createPlayer(){
     $btPause.hide();
@@ -161,7 +186,6 @@ function addMediaElementEvents(){
     audio.addEventListener( 'timeupdate', function( event ) {
         
         document.getElementById('seekbar').value= audio.currentTime;  
-        
         $tempTime=Math.round(audio.currentTime);
         if($curr_secs!=$tempTime){
             $curr_secs=$tempTime;

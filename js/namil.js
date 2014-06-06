@@ -1,7 +1,7 @@
 var currentSongNumber=0;
 var playing = false;            
 var gainNode ;
-var files;
+var files=[];
 var url;
 var audio;
 var audioVolumeRatio=0;
@@ -44,7 +44,7 @@ function loadAudioFile(number){
     console.log("loadaudiofile");
     var temp=songListArray[number];
     var f=files[temp];
-    console.log("file: "+f.name);
+    //console.log("file: "+f.name);
     if(window.createObjectURL){
         url = window.createObjectURL(f)
     }else if(window.createBlobURL){
@@ -113,6 +113,7 @@ function setNextSongNumber(){
         currentSongNumber= (currentSongNumber+1)%files.length;
     }
 }
+
 function setPreviousSongNumber(){
     if(files.length>1){
         currentSongNumber= (currentSongNumber-1+files.length)%files.length;
@@ -121,13 +122,14 @@ function setPreviousSongNumber(){
 
 function resetAudioSource(){
     //audio.src=null;
+    reSetTableRow(currentSongNumber);
     resetAudiosource=true;
 }
 function addMediaEvents(){
     audio.addEventListener('ended', endedMedia);
 }
 function endedMedia(){
-    
+    reSetTableRow(currentSongNumber);
     if(playing){
         if((!repeatbutton)&&(currentSongNumber==(files.length-1))){
             next();
@@ -191,13 +193,28 @@ function setMediaTitle($timer){
     }
 }
 function setFile(file){
-    this.files=file;
+    for(var i=0; i<file.length; i++){
+        if(!include(files, file[i])){
+            this.files.push(file[i]);
+            
+        }
+        else{
+            alert("contains"+file[i].name);
+        }
+    }
     songListArray=createArray(files.length);
+    loadLibrary(files);
 }
 
 function setTableRow(SongNumber){
-//console.log(SongNumber);
-//$('tr:nth-child('+(SongNumber+1)+') td').addClass("highlight");
+    var temp=songListArray[SongNumber];
+    $('tr:nth-child('+(temp+1)+') td').addClass("active");
+    /*temp=songListArray[SongNumber-1];
+    $('tr:nth-child('+(temp+1)+') td').removeClass("active");*/
+}
+function reSetTableRow(SongNumber){
+    var temp=songListArray[SongNumber];
+    $('tr:nth-child('+(temp+1)+') td').removeClass("active");
 }
 
 function setRepeatButton(value){
@@ -240,4 +257,85 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+function include(arr,obj) {
+
+    /* check the file obj is already inserted in to the file list
+     * if it is return true, else false
+     */
+    for(var i=0; i<arr.length; i++){
+        if(arr[i].name==obj.name)
+            return true;
+    }
+    return false;
+}
+
+function loadLibrary(files){
+    var Titles=new Array("Song name","Type","");
+    var table = $('<table></table>').addClass("table table");
+    var thead = $('<thead></thead>');
+    var row = $('<tr></tr>');
+    for(i=0;i<Titles.length;i++){
+        var rowitem=$('<th></th>').text(Titles[i]);
+        row.append(rowitem);
+    }
+    thead.append(row);
+    var tbody = $('<tbody></tbody>').addClass('table-hover');
+    for(i=0; i<files.length; i++){
+        row = $('<tr></tr>');
+        var rowitem_name=$('<td></td>').text(files[i].name);
+        row.append(rowitem_name);
+        var rowitem_type=$('<td></td>').text(files[i].type||'N/A');
+        row.append(rowitem_type);
+        var rowitem_button_delete=$('<td>\n\
+<button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" onclick="deletesong('+i+')" data-placement="right" title="Click to remove from playlist">\n\
+    <span class="glyphicon glyphicon-remove" ></span>\n\
+</button>\n\
+<button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" onclick="playSong('+i+')" data-placement="right" title="Click to play">\n\
+    <span class="glyphicon glyphicon-play" ></span>\n\
+</button>\n\
+</td>');
+        row.append(rowitem_button_delete);
+        var rowitem_hidden=$('<input type="hidden" id="song_no" value="'+i+'"/>');
+        row.append(rowitem_hidden);
+       
+        
+        tbody.append(row);
+    }
+    
+    table.append(thead);
+    table.append(tbody);
+    
+    $('#playlist').empty();
+    $('#playlist').append(table);
+}
+
+function deletesong(item){
+    if(files.length<=1){
+        files=[];
+        $('#playlist').empty();
+        var drop=$('<div class="drop-panel">Drag and drop your media files here...</div>')
+        $('#playlist').append(drop);
+        stop();
+        return;
+    }
+    files.splice(item, 1);
+    if(currentSongNumber==item){
+        resetPlay();
+    }
+    songListArray=createArray(files.length);
+    loadLibrary(files);
+}
+
+function playSong(item){
+    var temp=songListArray.indexOf(item);
+    
+    if(currentSongNumber!=temp){
+        resetAudioSource(); 
+        currentSongNumber=temp;
+        play();
+    }
+    
+//alert("Song is"+songListArray[temp].name);
 }
