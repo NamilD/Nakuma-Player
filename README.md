@@ -26,3 +26,12 @@ Just download the code and run index.html
 Note that the version 2.0 supports only for mp3 audio files.Enjoy!
 
 Bootstrap is used to build the user interface, check out <http://getbootstrap.com>!
+
+## Creator
+
+**Namil Abeywickrama**
+
+- <http://twitter.com/namdabey>
+- <http://facebook.com/namilabeywickrama>
+- <http://linkedin.com/in/namilabeywickrama>
+- 
