@@ -34,4 +34,3 @@ Bootstrap is used to build the user interface, check out <http://getbootstrap.co
 - <http://twitter.com/namdabey>
 - <http://facebook.com/namilabeywickrama>
 - <http://linkedin.com/in/namilabeywickrama>
-- 
