@@ -24,3 +24,5 @@ Working perfect on chrome and firefox.
 Just download the code and run index.html
 
 Note that the version 2.0 supports only for mp3 audio files.Enjoy!
+
+Bootstrap is used to build the user interface.
