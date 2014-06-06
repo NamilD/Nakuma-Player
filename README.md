@@ -25,5 +25,4 @@ Just download the code and run index.html
 
 Note that the version 2.0 supports only for mp3 audio files.Enjoy!
 
-Bootstrap is used to build the user interface.
-(tagged [`twitter-bootstrap-3`](http://stackoverflow.com/questions/tagged/twitter-bootstrap-3)).
+Bootstrap is used to build the user interface, check out <http://getbootstrap.com>!
