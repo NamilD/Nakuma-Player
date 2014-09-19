@@ -9,6 +9,40 @@ var songListArray;
 var repeatbutton=false;
 var shufflebutton=false;
 var resetAudiosource=true;
+var video;
+var tempAudio;
+
+/* Enumeration to store the file Types
+ * File Types: Audio, Video, Other
+ */
+
+var FileTypesEnum = {
+	
+	Other: 0,
+	Video: 1,
+	Audio: 2
+}
+
+/* Returns the type of the file
+ *  Parameters: 
+ *		file: file to checked
+ *
+ *  Return Values: FileTypesEnum
+ */		
+
+function getFileType(file){
+	var ftString = file.type.toString();
+	var args = ftString.split("/");
+	
+	if(args[0]=="video"||args[0]=="Video"){
+		return FileTypesEnum.Video;
+	}
+	else if(args[0]=="audio"||args[0]=="Audio"){
+		return FileTypesEnum.Audio;
+	}
+	
+	return FileTypesEnum.Other;
+}
 
 function init(){
     loadPlayer();
@@ -20,6 +54,9 @@ function loadPlayer(){
     audio.controls = false;
     audio.autoplay = true;
     document.body.appendChild(audio);
+    tempAudio=audio;
+    // Get video element in to the javascript context
+    video=document.getElementById('media-video');
     
     var context = null;
     usingWebAudio = true;
@@ -54,11 +91,22 @@ function loadAudioFile(number){
     }else if(window.webkitURL && window.webkitURL.createObjectURL){
         url = window.webkitURL.createObjectURL(f)
     }
-    
-    audio.src = url;
-    audio.load();
-    resetAudiosource=false;
-    console.log(url);
+    var fileType=getFileType(f);
+    if(fileType == FileTypesEnum.Video){
+    	audio =video;
+    }
+    else if(fileType == FileTypesEnum.Audio){
+    	audio = tempAudio;
+    }
+    else{
+    	alert("Not a supported file type!");
+    }
+    	audio.src = url;
+    	audio.load();
+    	resetAudiosource=false;
+    	console.log(url);
+    /*
+    */
 }
 function play(){
     ///if(audio.src==null){       //there is no audio file loaded in to the audio element
@@ -339,3 +387,5 @@ function playSong(item){
     
 //alert("Song is"+songListArray[temp].name);
 }
+
+
