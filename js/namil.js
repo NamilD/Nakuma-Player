@@ -94,9 +94,12 @@ function loadAudioFile(number){
     var fileType=getFileType(f);
     if(fileType == FileTypesEnum.Video){
     	audio =video;
+    	$('#playlist').hide();
     }
     else if(fileType == FileTypesEnum.Audio){
+    	$("#media-video").first().attr('src','') //removes the html5 video image from page.
     	audio = tempAudio;
+    	$('#playlist').show();
     }
     else{
     	alert("Not a supported file type!");
@@ -125,17 +128,20 @@ function resetPlay(){
 }
 
 function previous(){
+	stop();
     resetAudioSource();     //reset the source in to null url
     setPreviousSongNumber();
     play();
 }
 function next(){
+	stop();
     resetAudioSource();     //reset the source in to null url
     setNextSongNumber();
     play();
 }
 function pause(){
     audio.pause();
+    //alert("Paused");
 }
 function stop(){
     pause();
