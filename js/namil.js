@@ -94,12 +94,12 @@ function loadAudioFile(number){
     var fileType=getFileType(f);
     if(fileType == FileTypesEnum.Video){
     	audio =video;
-    	$('#playlist').hide();
+    	
     }
     else if(fileType == FileTypesEnum.Audio){
     	$("#media-video").first().attr('src','') //removes the html5 video image from page.
     	audio = tempAudio;
-    	$('#playlist').show();
+    	
     }
     else{
     	alert("Not a supported file type!");
@@ -326,7 +326,7 @@ function include(arr,obj) {
 }
 
 function loadLibrary(files){
-    var Titles=new Array("Song name","Type","");
+    var Titles=new Array("Song name"/*,"Type"*/,"");
     var table = $('<table></table>').addClass("table table");
     var thead = $('<thead></thead>');
     var row = $('<tr></tr>');
@@ -340,8 +340,8 @@ function loadLibrary(files){
         row = $('<tr></tr>');
         var rowitem_name=$('<td></td>').text(files[i].name);
         row.append(rowitem_name);
-        var rowitem_type=$('<td></td>').text(files[i].type||'N/A');
-        row.append(rowitem_type);
+        //var rowitem_type=$('<td></td>').text(files[i].type||'N/A');
+        //row.append(rowitem_type);
         var rowitem_button_delete=$('<td>\n\
 <button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" onclick="deletesong('+i+')" data-placement="right" title="Click to remove from playlist">\n\
     <span class="glyphicon glyphicon-remove" ></span>\n\
