@@ -25,3 +25,8 @@ body {
   color: #bbb;
   margin: 5px;
 }
+
+video {
+  height: 100%    !important;
+  width: auto   !important;
+}
