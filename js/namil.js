@@ -32,7 +32,7 @@ function loadPlayer(){
     }
     
     if(!usingWebAudio){
-        alert("Not supported");
+        alert("This Web browser doesn't support web Audio");
     }
     
     var source = context.createMediaElementSource(audio);
