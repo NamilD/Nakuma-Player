@@ -26,3 +26,13 @@ body {
   color: #bbb;
   margin: 5px;
 }
+table{
+	width:100%;
+}
+
+table { display: inline-block; }
+
+table {
+    height: 400px;
+	overflow-y: auto;
+}

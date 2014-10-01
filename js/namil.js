@@ -326,7 +326,7 @@ function include(arr,obj) {
 }
 
 function loadLibrary(files){
-    var Titles=new Array("Song name"/*,"Type"*/,"");
+    var Titles=new Array("Playlist","Options"/*,"Type"*/);
     var table = $('<table></table>').addClass("table table");
 	var thead = $('<thead></thead>');
     var row = $('<tr></tr>');
