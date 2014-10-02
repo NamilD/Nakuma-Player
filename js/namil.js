@@ -360,8 +360,48 @@ function loadLibrary(files){
     table.append(thead);
     table.append(tbody);
     
-    $('#playlist').empty();
-    $('#playlist').append(table);
+    $('#playlist2').empty();
+    $('#playlist2').append(table);
+	//$('#playlist1').empty();
+	//table.addClass('table table hidden-lg hidden-md hidden-sm')
+    //$('#playlist1').append(table);
+	
+	var Titles=new Array("Playlist","Options"/*,"Type"*/);
+    var table = $('<table></table>').addClass("table table hidden-lg hidden-md hidden-sm");
+	var thead = $('<thead></thead>');
+    var row = $('<tr></tr>');
+    for(i=0;i<Titles.length;i++){
+        var rowitem=$('<th></th>').text(Titles[i]);
+        row.append(rowitem);
+    }
+    thead.append(row);
+    var tbody = $('<tbody></tbody>').addClass('table-hover');
+    for(i=0; i<files.length; i++){
+        row = $('<tr></tr>');
+        var rowitem_name=$('<td></td>').text(trimString(files[i].name,30,true));
+        row.append(rowitem_name);
+        //var rowitem_type=$('<td></td>').text(files[i].type||'N/A');
+        //row.append(rowitem_type);
+        var rowitem_button_delete=$('<td>\n\
+<a href="#"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" onclick="deletesong('+i+')" data-placement="right" title="Click to remove from playlist">\n\
+</span></a>\n\
+<a href="#" ><span class="glyphicon glyphicon-play" data-toggle="tooltip" onclick="playSong('+i+')" data-placement="right" title="Click to play">\n\
+    </span>\n\
+</a>\n\
+</td>');
+        row.append(rowitem_button_delete);
+        var rowitem_hidden=$('<input type="hidden" id="song_no" value="'+i+'"/>');
+        row.append(rowitem_hidden);
+       
+        
+        tbody.append(row);
+    }
+    
+    table.append(thead);
+    table.append(tbody);
+    
+    $('#playlist1').empty();
+    $('#playlist1').append(table);
 }
 
 function deletesong(item){
