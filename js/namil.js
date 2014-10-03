@@ -9,6 +9,40 @@ var songListArray;
 var repeatbutton=false;
 var shufflebutton=false;
 var resetAudiosource=true;
+var video;
+var tempAudio;
+
+/* Enumeration to store the file Types
+ * File Types: Audio, Video, Other
+ */
+
+var FileTypesEnum = {
+	
+	Other: 0,
+	Video: 1,
+	Audio: 2
+}
+
+/* Returns the type of the file
+ *  Parameters: 
+ *		file: file to checked
+ *
+ *  Return Values: FileTypesEnum
+ */		
+
+function getFileType(file){
+	var ftString = file.type.toString();
+	var args = ftString.split("/");
+	
+	if(args[0]=="video"||args[0]=="Video"){
+		return FileTypesEnum.Video;
+	}
+	else if(args[0]=="audio"||args[0]=="Audio"){
+		return FileTypesEnum.Audio;
+	}
+	
+	return FileTypesEnum.Other;
+}
 
 function init(){
     loadPlayer();
@@ -20,6 +54,9 @@ function loadPlayer(){
     audio.controls = false;
     audio.autoplay = true;
     document.body.appendChild(audio);
+    tempAudio=audio;
+    // Get video element in to the javascript context
+    video=document.getElementById('media-video');
     
     var context = null;
     usingWebAudio = true;
@@ -32,7 +69,7 @@ function loadPlayer(){
     }
     
     if(!usingWebAudio){
-        alert("This Web browser doesn't support web Audio");
+        alert("Not supported");
     }
     
     var source = context.createMediaElementSource(audio);
@@ -54,11 +91,25 @@ function loadAudioFile(number){
     }else if(window.webkitURL && window.webkitURL.createObjectURL){
         url = window.webkitURL.createObjectURL(f)
     }
-    
-    audio.src = url;
-    audio.load();
-    resetAudiosource=false;
-    console.log(url);
+    var fileType=getFileType(f);
+    if(fileType == FileTypesEnum.Video){
+    	audio =video;
+    	
+    }
+    else if(fileType == FileTypesEnum.Audio){
+    	$("#media-video").first().attr('src','') //removes the html5 video image from page.
+    	audio = tempAudio;
+    	
+    }
+    else{
+    	alert("Not a supported file type!");
+    }
+    	audio.src = url;
+    	audio.load();
+    	resetAudiosource=false;
+    	console.log(url);
+    /*
+    */
 }
 function play(){
     ///if(audio.src==null){       //there is no audio file loaded in to the audio element
@@ -77,17 +128,20 @@ function resetPlay(){
 }
 
 function previous(){
+	stop();
     resetAudioSource();     //reset the source in to null url
     setPreviousSongNumber();
     play();
 }
 function next(){
+	stop();
     resetAudioSource();     //reset the source in to null url
     setNextSongNumber();
     play();
 }
 function pause(){
     audio.pause();
+    //alert("Paused");
 }
 function stop(){
     pause();
@@ -272,9 +326,9 @@ function include(arr,obj) {
 }
 
 function loadLibrary(files){
-    var Titles=new Array("Song name","Type","");
+    var Titles=new Array("Playlist","Options"/*,"Type"*/);
     var table = $('<table></table>').addClass("table table");
-    var thead = $('<thead></thead>');
+	var thead = $('<thead></thead>');
     var row = $('<tr></tr>');
     for(i=0;i<Titles.length;i++){
         var rowitem=$('<th></th>').text(Titles[i]);
@@ -284,17 +338,16 @@ function loadLibrary(files){
     var tbody = $('<tbody></tbody>').addClass('table-hover');
     for(i=0; i<files.length; i++){
         row = $('<tr></tr>');
-        var rowitem_name=$('<td></td>').text(files[i].name);
+        var rowitem_name=$('<td></td>').text(trimString(files[i].name,30,true));
         row.append(rowitem_name);
-        var rowitem_type=$('<td></td>').text(files[i].type||'N/A');
-        row.append(rowitem_type);
+        //var rowitem_type=$('<td></td>').text(files[i].type||'N/A');
+        //row.append(rowitem_type);
         var rowitem_button_delete=$('<td>\n\
-<button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" onclick="deletesong('+i+')" data-placement="right" title="Click to remove from playlist">\n\
-    <span class="glyphicon glyphicon-remove" ></span>\n\
-</button>\n\
-<button type="button" class="btn btn-default btn-xs" data-toggle="tooltip" onclick="playSong('+i+')" data-placement="right" title="Click to play">\n\
-    <span class="glyphicon glyphicon-play" ></span>\n\
-</button>\n\
+<a href="#"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" onclick="deletesong('+i+')" data-placement="right" title="Click to remove from playlist">\n\
+</span></a>\n\
+<a href="#" ><span class="glyphicon glyphicon-play" data-toggle="tooltip" onclick="playSong('+i+')" data-placement="right" title="Click to play">\n\
+    </span>\n\
+</a>\n\
 </td>');
         row.append(rowitem_button_delete);
         var rowitem_hidden=$('<input type="hidden" id="song_no" value="'+i+'"/>');
@@ -307,8 +360,48 @@ function loadLibrary(files){
     table.append(thead);
     table.append(tbody);
     
-    $('#playlist').empty();
-    $('#playlist').append(table);
+    $('#playlist2').empty();
+    $('#playlist2').append(table);
+	//$('#playlist1').empty();
+	//table.addClass('table table hidden-lg hidden-md hidden-sm')
+    //$('#playlist1').append(table);
+	
+	var Titles=new Array("Playlist","Options"/*,"Type"*/);
+    var table = $('<table></table>').addClass("table table hidden-lg hidden-md hidden-sm");
+	var thead = $('<thead></thead>');
+    var row = $('<tr></tr>');
+    for(i=0;i<Titles.length;i++){
+        var rowitem=$('<th></th>').text(Titles[i]);
+        row.append(rowitem);
+    }
+    thead.append(row);
+    var tbody = $('<tbody></tbody>').addClass('table-hover');
+    for(i=0; i<files.length; i++){
+        row = $('<tr></tr>');
+        var rowitem_name=$('<td></td>').text(trimString(files[i].name,30,true));
+        row.append(rowitem_name);
+        //var rowitem_type=$('<td></td>').text(files[i].type||'N/A');
+        //row.append(rowitem_type);
+        var rowitem_button_delete=$('<td>\n\
+<a href="#"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" onclick="deletesong('+i+')" data-placement="right" title="Click to remove from playlist">\n\
+</span></a>\n\
+<a href="#" ><span class="glyphicon glyphicon-play" data-toggle="tooltip" onclick="playSong('+i+')" data-placement="right" title="Click to play">\n\
+    </span>\n\
+</a>\n\
+</td>');
+        row.append(rowitem_button_delete);
+        var rowitem_hidden=$('<input type="hidden" id="song_no" value="'+i+'"/>');
+        row.append(rowitem_hidden);
+       
+        
+        tbody.append(row);
+    }
+    
+    table.append(thead);
+    table.append(tbody);
+    
+    $('#playlist1').empty();
+    $('#playlist1').append(table);
 }
 
 function deletesong(item){
@@ -339,3 +432,15 @@ function playSong(item){
     
 //alert("Song is"+songListArray[temp].name);
 }
+
+function trimString(string, length, removeExtension){
+	if(removeExtension){
+		string = string.substring(0, string.lastIndexOf('.'));
+	}
+	if(string.length>length){
+		string = string.substring(0, length);
+	}
+	return string+"...";
+}
+
+

@@ -1,7 +1,8 @@
 /* 
-    Document   : style
-    Created on : Mar 15, 2014, 10:08:20 AM
-    Author     : Namil
+    Document   	: style
+    Created on 	: Mar 15, 2014, 10:08:20 AM
+    Author     	: Namil Abeywickrama 
+	Author email: namil.abeywickrama@gmail.com
     Description:
         Purpose of the stylesheet follows.
 */
@@ -24,4 +25,15 @@ body {
   text-align: center;
   color: #bbb;
   margin: 5px;
+}
+
+#playlist2 table{
+	width:100%;
+}
+
+#playlist2 table { display: inline-block; }
+
+#playlist2 table {
+    height: 400px;
+	overflow-y: auto;
 }
