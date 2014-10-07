@@ -11,6 +11,7 @@ var shufflebutton=false;
 var resetAudiosource=true;
 var video;
 var tempAudio;
+var playingMediaType;
 
 /* Enumeration to store the file Types
  * File Types: Audio, Video, Other
@@ -94,12 +95,13 @@ function loadAudioFile(number){
     var fileType=getFileType(f);
     if(fileType == FileTypesEnum.Video){
     	audio =video;
+		playingMediaType = FileTypesEnum.Video;
     	
     }
     else if(fileType == FileTypesEnum.Audio){
     	$("#media-video").first().attr('src','') //removes the html5 video image from page.
     	audio = tempAudio;
-    	
+    	playingMediaType = FileTypesEnum.Audio;
     }
     else{
     	alert("Not a supported file type!");

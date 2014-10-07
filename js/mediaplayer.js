@@ -230,6 +230,9 @@ function mediaTimeSet(){
 // Toggle fulscreen code
 
 function toggleFullScreen() {
+	
+	//reference: http://css-tricks.com/custom-controls-in-html5-video-full-screen/
+	
 	var videoContainer = document.getElementById('media-video');
 	var fullScreenEnabled = !!(document.fullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled || document.webkitSupportsFullscreen || document.webkitFullscreenEnabled || document.createElement('video').webkitRequestFullScreen);
 	if (!fullScreenEnabled) {
@@ -244,11 +247,18 @@ function toggleFullScreen() {
       setFullscreenData(false);
    }
    else {
-      if (videoContainer.requestFullscreen) videoContainer.requestFullscreen();
-      else if (videoContainer.mozRequestFullScreen) videoContainer.mozRequestFullScreen();
-      else if (videoContainer.webkitRequestFullScreen) video.webkitRequestFullScreen();
-      else if (videoContainer.msRequestFullscreen) videoContainer.msRequestFullscreen();
-      setFullscreenData(true);
+		if(playingMediaType == FileTypesEnum.Video){
+			// Fullscreen video and Player controls
+			if (videoContainer.requestFullscreen) videoContainer.requestFullscreen();
+			else if (videoContainer.mozRequestFullScreen) videoContainer.mozRequestFullScreen();
+			else if (videoContainer.webkitRequestFullScreen) videoContainer.webkitRequestFullScreen();
+			else if (videoContainer.msRequestFullscreen) videoContainer.msRequestFullscreen();
+		}
+		/*else if(playingMediaType == FileTypesEnum.Audio){
+			//Fullscreen whole player
+		}
+
+      */
    }
    
    /*
