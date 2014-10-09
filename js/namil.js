@@ -183,6 +183,10 @@ function resetAudioSource(){
 }
 function addMediaEvents(){
     audio.addEventListener('ended', endedMedia);
+	toggleFullScreen();
+}function addMediaEvents(){
+    video.addEventListener('ended', endedMedia);
+	toggleFullScreen();
 }
 function endedMedia(){
     reSetTableRow(currentSongNumber);

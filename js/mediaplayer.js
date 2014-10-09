@@ -216,9 +216,39 @@ function addMediaElementEvents(){
             setMediaTitle(Math.round(audio.currentTime));
         }
     });
+	
+	video.addEventListener( 'timeupdate', function( event ) {
+        
+        document.getElementById('seekbar').value= video.currentTime;  
+        $tempTime=Math.round(video.currentTime);
+        if($curr_secs!=$tempTime){
+            $curr_secs=$tempTime;
+            
+            $curr_mins=Math.round($curr_secs/60);
+            $curr_hrs=Math.round($curr_mins/60);
+            $curr_secs=$curr_secs%60;
+            
+            if ($curr_hrs   < 10) {
+                $curr_hrs   = "0"+$curr_hrs;
+            }
+            if ($curr_mins < 10) {
+                $curr_mins = "0"+$curr_mins;
+            }
+            if ($curr_secs < 10) {
+                $curr_secs = "0"+$curr_secs;
+            }
+            
+            $('#media-duration').text(""+$curr_hrs+":"+$curr_mins+":"+$curr_secs);
+            
+            setMediaTitle(Math.round(video.currentTime));
+        }
+    });
     
     audio.addEventListener( 'loadedmetadata', function( event ) {
         document.getElementById('seekbar').max= audio.duration;
+    });
+	video.addEventListener( 'loadedmetadata', function( event ) {
+        document.getElementById('seekbar').max= video.duration;
     });
 }
 
@@ -229,9 +259,13 @@ function mediaTimeSet(){
 
 // Toggle fulscreen code
 
-function toggleFullScreen() {
+function toggleFullScreen( OnMediaPlayEnded) {
 	
 	//reference: http://css-tricks.com/custom-controls-in-html5-video-full-screen/
+	
+	if (OnMediaPlayEnded === undefined) {
+          OnMediaPlayEnded = false;
+    } 
 	
 	var videoContainer = document.getElementById('media-video');
 	var fullScreenEnabled = !!(document.fullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled || document.webkitSupportsFullscreen || document.webkitFullscreenEnabled || document.createElement('video').webkitRequestFullScreen);
@@ -253,12 +287,16 @@ function toggleFullScreen() {
 			else if (videoContainer.mozRequestFullScreen) videoContainer.mozRequestFullScreen();
 			else if (videoContainer.webkitRequestFullScreen) videoContainer.webkitRequestFullScreen();
 			else if (videoContainer.msRequestFullscreen) videoContainer.msRequestFullscreen();
+			setFullscreenData(true);
 		}
-		/*else if(playingMediaType == FileTypesEnum.Audio){
+		else if(playingMediaType == FileTypesEnum.Audio){
 			//Fullscreen whole player
+			if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+			else if (document.documentElement.mozRequestFullScreen) document.documentElement.mozRequestFullScreen();
+			else if (document.documentElement.webkitRequestFullScreen) document.documentElement.webkitRequestFullScreen();
+			else if (document.documentElement.msRequestFullscreen) document.documentElement.msRequestFullscreen();
+			setFullscreenData(true);
 		}
-
-      */
    }
    
    /*
