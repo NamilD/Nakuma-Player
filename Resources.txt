@@ -1,0 +1,15 @@
+HTML5 Video Aspect ratio:
+	
+		https://html.spec.whatwg.org/multipage/embedded-content.html#the-video-element
+	
+		http://twofuckingdevelopers.com/2013/10/responsive-html5-video-players/
+	
+		http://stackoverflow.com/questions/4129102/html5-video-dimensions/4129189#4129189
+	
+		http://stackoverflow.com/questions/21787444/using-twitter-bootstrap-how-to-make-an-embedded-video-responsive
+	
+
+
+FullScreen:
+	https://developer.mozilla.org/en-US/Apps/Build/Audio_and_video_delivery/cross_browser_video_player#Fullscreen
+		http://css-tricks.com/custom-controls-in-html5-video-full-screen/
