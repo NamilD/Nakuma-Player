@@ -118,10 +118,11 @@ function play(){
     if(resetAudiosource){       //there is no audio file loaded in to the audio element
         loadAudioFile(currentSongNumber);
     }
-    playing=true;
+	playing=true;
     audio.play();
     setMediaTitle(0);
-    setTableRow(currentSongNumber);
+    setTableRow(currentSongNumber);	
+	
 }
 function resetPlay(){
     resetAudioSource();
@@ -183,12 +184,11 @@ function resetAudioSource(){
 }
 function addMediaEvents(){
     audio.addEventListener('ended', endedMedia);
-	toggleFullScreen();
-}function addMediaEvents(){
-    video.addEventListener('ended', endedMedia);
-	toggleFullScreen();
+	video.addEventListener('ended', endedMedia);
+	
 }
 function endedMedia(){
+	//alert("Media Ended");
     reSetTableRow(currentSongNumber);
     if(playing){
         if((!repeatbutton)&&(currentSongNumber==(files.length-1))){
@@ -434,6 +434,7 @@ function playSong(item){
         resetAudioSource(); 
         currentSongNumber=temp;
         play();
+		
     }
     
 //alert("Song is"+songListArray[temp].name);
