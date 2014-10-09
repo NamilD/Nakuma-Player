@@ -37,3 +37,30 @@ body {
     height: 400px;
 	overflow-y: auto;
 }
+
+/* Hiding controls in fullscreen */
+
+::-webkit-slider-thumb
+::-moz-range-track
+::-moz-range-thumb
+
+::-webkit-media-controls {
+  display:none !important;
+}
+
+video::-webkit-media-controls {
+  display:none !important;
+}
+
+video::-webkit-media-controls-enclosure {
+  display:none !important;
+}
+
+.media-control-container {
+  z-index: 2147483647;
+}
+.media-video {
+  z-index: 2147483647;
+}
+
+/* ./Hiding controls in fullscreen */

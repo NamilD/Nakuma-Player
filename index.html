@@ -52,87 +52,87 @@
         </nav>
     
 
-		<div class="navbar navbar-default navbar-fixed-bottom" >
-			<div class="container">
-
-				<div class="row">
-					<div class="col-md-3 col-sm-4 col-xs-8">
-						<div class="btn-toolbar" role="toolbar">
-							<div class="nav btn-group">
-								<button type="button" id="btn-step-backward" class="navbar-btn btn btn-default btn-lg">
-									<span class="glyphicon glyphicon-fast-backward"></span>
-								</button>
-								<button type="button" id="btn-play" class="navbar-btn btn btn-default btn-lg">
-									<span class="glyphicon glyphicon-play"></span>
-								</button>
-								<button type="button" id="btn-pause" class="navbar-btn btn btn-default btn-lg">
-									<span class="glyphicon glyphicon-pause"></span>
-								</button>
-								<button type="button" id="btn-stop" class="navbar-btn btn btn-default btn-lg">
-									<span class="glyphicon glyphicon-stop"></span>
-								</button>
-								<button type="button" id="btn-step-forward" class="navbar-btn btn btn-default btn-lg">
-									<span class="glyphicon glyphicon-fast-forward"></span>
-								</button>
-
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-4 hidden-xs">
-						<ul class="nav">
-							<button type="button" id="btn-volume-up" class="navbar-btn btn btn-default btn-lg">
-								<span class="glyphicon glyphicon-volume-up"></span>
-							</button>
-							<button type="button" id="btn-volume-down" class="navbar-btn btn btn-default btn-lg">
-								<span class="glyphicon glyphicon-volume-down"></span>
-							</button>
-							<button type="button" id="btn-volume-off" class="navbar-btn btn btn-default btn-lg">
-								<span class="glyphicon glyphicon-volume-off"></span>
-							</button>
-							<span class="glyphicon ">
-								<input id="btn-volume-bar" type="range" name="rng" min="0" max="1" step="0.01" value="1"  style="width: 100%">
-							</span>
-						</ul>
-					</div>
-					<div class="col-md-1 col-sm-1 col-xs-1 nav navbar-btn ">
-					<div class="btn-group">
-							<button type="button" id="btn-open" class="navbar-btn btn btn-default btn-md">
-								<span class="glyphicon glyphicon-open"></span>
-							</button>
-							<input id="input-file" type="file" multiple="true" style="visibility: hidden; widows: 0;height: 0">
-							<button  type="button" class="navbar-btn btn btn-default btn-md" onclick="toggleFullScreen()">
-								<span class="glyphicon glyphicon-fullscreen"></span>
-							</button>
-						</div>
-					</div>
-					<div class="col-md-1 col-sm-2 col-xs-3">
-						<ul class="nav navbar-btn ">
-							<li><input type="checkbox" id="btn-repeat" name="my-checkbox" data-size="mini" data-label-text="<span class='glyphicon glyphicon-repeat'></span>"></li>
-							<li><input type="checkbox" id="btn-shuffle" name="my-checkbox" data-size="mini" data-label-text="<span class='glyphicon glyphicon-random'></span>"></li>
-						</ul>
-					</div>
-					<div class="col-md-1 hidden-sm hidden-xs">
-						<ul class="nav navbar-nav navbar-right">
-							<li><a id="media-duration" >00:00:00</a></li>
-						</ul>
-					</div>
-					<div class="col-md-2 visible-lg">
-						<ul class="nav navbar-nav navbar-right">
-							<li><a id="media-title" ></a></li>
-
-						</ul>
-					</div>
-				</div>
-				<div class="row" >
-					<input id="seekbar" class="nav navbar-btn" type="range" min="0" value="0" step="0.25" onchange="mediaTimeSet()" style="width: 100%">
-				</div>
-			</div>
-		</div>
-
+		
 		<div id="drop_zone" class="container">
 			
-			<div class="col-md-8 col-sm-8 col-xs-12" >
-				<video id='media-video' class="img img-responsive"><!-- --></video>
+			<div class="col-md-8 col-sm-8 col-xs-12 " >
+				<video id='media-video' class="img img-responsive "><!-- --></video>
+				<div class="navbar navbar-default navbar-fixed-bottom media-control-container" id="media-control-container">
+					<div class="container">
+
+						<div class="row">
+							<div class="col-md-3 col-sm-4 col-xs-8">
+								<div class="btn-toolbar" role="toolbar">
+									<div class="nav btn-group">
+										<button type="button" id="btn-step-backward" class="navbar-btn btn btn-default btn-lg">
+											<span class="glyphicon glyphicon-fast-backward"></span>
+										</button>
+										<button type="button" id="btn-play" class="navbar-btn btn btn-default btn-lg">
+											<span class="glyphicon glyphicon-play"></span>
+										</button>
+										<button type="button" id="btn-pause" class="navbar-btn btn btn-default btn-lg">
+											<span class="glyphicon glyphicon-pause"></span>
+										</button>
+										<button type="button" id="btn-stop" class="navbar-btn btn btn-default btn-lg">
+											<span class="glyphicon glyphicon-stop"></span>
+										</button>
+										<button type="button" id="btn-step-forward" class="navbar-btn btn btn-default btn-lg">
+											<span class="glyphicon glyphicon-fast-forward"></span>
+										</button>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-4 hidden-xs">
+								<ul class="nav">
+									<button type="button" id="btn-volume-up" class="navbar-btn btn btn-default btn-lg">
+										<span class="glyphicon glyphicon-volume-up"></span>
+									</button>
+									<button type="button" id="btn-volume-down" class="navbar-btn btn btn-default btn-lg">
+										<span class="glyphicon glyphicon-volume-down"></span>
+									</button>
+									<button type="button" id="btn-volume-off" class="navbar-btn btn btn-default btn-lg">
+										<span class="glyphicon glyphicon-volume-off"></span>
+									</button>
+									<span class="glyphicon ">
+										<input id="btn-volume-bar" type="range" name="rng" min="0" max="1" step="0.01" value="1"  style="width: 100%">
+									</span>
+								</ul>
+							</div>
+							<div class="col-md-1 col-sm-1 col-xs-1 nav navbar-btn ">
+							<div class="btn-group">
+									<button type="button" id="btn-open" class="navbar-btn btn btn-default btn-md">
+										<span class="glyphicon glyphicon-open"></span>
+									</button>
+									<input id="input-file" type="file" multiple="true" style="visibility: hidden; widows: 0;height: 0">
+									<button  type="button" class="navbar-btn btn btn-default btn-md" onclick="toggleFullScreen()">
+										<span class="glyphicon glyphicon-fullscreen"></span>
+									</button>
+								</div>
+							</div>
+							<div class="col-md-1 col-sm-2 col-xs-3">
+								<ul class="nav navbar-btn ">
+									<li><input type="checkbox" id="btn-repeat" name="my-checkbox" data-size="mini" data-label-text="<span class='glyphicon glyphicon-repeat'></span>"></li>
+									<li><input type="checkbox" id="btn-shuffle" name="my-checkbox" data-size="mini" data-label-text="<span class='glyphicon glyphicon-random'></span>"></li>
+								</ul>
+							</div>
+							<div class="col-md-1 hidden-sm hidden-xs">
+								<ul class="nav navbar-nav navbar-right">
+									<li><a id="media-duration" >00:00:00</a></li>
+								</ul>
+							</div>
+							<div class="col-md-2 visible-lg">
+								<ul class="nav navbar-nav navbar-right">
+									<li><a id="media-title" ></a></li>
+
+								</ul>
+							</div>
+						</div>
+						<div class="row" >
+							<input id="seekbar" class="nav navbar-btn" type="range" min="0" value="0" step="0.25" onchange="mediaTimeSet()" style="width: 100%">
+						</div>
+					</div>
+				</div>
 			</div>	
 			<div class="col-md-4 col-sm-4 hidden-xs" >
 				<div id="playlist2" class="panel panel-default playlist-big">
