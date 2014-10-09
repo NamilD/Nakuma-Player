@@ -12,6 +12,7 @@ var resetAudiosource=true;
 var video;
 var tempAudio;
 var playingMediaType;
+var previousMediaType;
 
 /* Enumeration to store the file Types
  * File Types: Audio, Video, Other
@@ -93,6 +94,7 @@ function loadAudioFile(number){
         url = window.webkitURL.createObjectURL(f)
     }
     var fileType=getFileType(f);
+	previousMediaType = playingMediaType;
     if(fileType == FileTypesEnum.Video){
     	audio =video;
 		playingMediaType = FileTypesEnum.Video;
@@ -110,6 +112,9 @@ function loadAudioFile(number){
     	audio.load();
     	resetAudiosource=false;
     	console.log(url);
+		if(previousMediaType != playingMediaType){
+			changeFullScreen();
+		}
     /*
     */
 }

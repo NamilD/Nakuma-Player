@@ -278,7 +278,7 @@ function toggleFullScreen() {
 
 function changeFullScreen(){
 	if(isFullScreen()){
-		exitFullscreen();
+		exitFullScreen();
 		console.log("Exit fullScreen");
 		goFullScreen();
 		console.log("Go fullScreen");
