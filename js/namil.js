@@ -264,7 +264,7 @@ function setFile(file){
             
         }
         else{
-            alert("contains"+file[i].name);
+            console.log("Duplicate file "+file[i].name);
         }
     }
     songListArray=createArray(files.length);

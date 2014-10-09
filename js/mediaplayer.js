@@ -106,7 +106,7 @@ function addButtonEvents(){
     });
     $btvolume_min.on( "click", function(event){
         $vol=document.getElementById('btn-volume-bar').value;
-        alert($vol);
+        console.log("Volume : "+$vol);
         updateVolume($vol); 
     });
     $btvolume_normal.on( "click", function(event){
