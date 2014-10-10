@@ -11,6 +11,8 @@ var shufflebutton=false;
 var resetAudiosource=true;
 var video;
 var tempAudio;
+var playingMediaType;
+var previousMediaType;
 
 /* Enumeration to store the file Types
  * File Types: Audio, Video, Other
@@ -92,14 +94,16 @@ function loadAudioFile(number){
         url = window.webkitURL.createObjectURL(f)
     }
     var fileType=getFileType(f);
+	previousMediaType = playingMediaType;
     if(fileType == FileTypesEnum.Video){
     	audio =video;
+		playingMediaType = FileTypesEnum.Video;
     	
     }
     else if(fileType == FileTypesEnum.Audio){
     	$("#media-video").first().attr('src','') //removes the html5 video image from page.
     	audio = tempAudio;
-    	
+    	playingMediaType = FileTypesEnum.Audio;
     }
     else{
     	alert("Not a supported file type!");
@@ -108,6 +112,9 @@ function loadAudioFile(number){
     	audio.load();
     	resetAudiosource=false;
     	console.log(url);
+		if(previousMediaType != playingMediaType){
+			changeFullScreen();
+		}
     /*
     */
 }
@@ -116,10 +123,11 @@ function play(){
     if(resetAudiosource){       //there is no audio file loaded in to the audio element
         loadAudioFile(currentSongNumber);
     }
-    playing=true;
+	playing=true;
     audio.play();
     setMediaTitle(0);
-    setTableRow(currentSongNumber);
+    setTableRow(currentSongNumber);	
+	
 }
 function resetPlay(){
     resetAudioSource();
@@ -181,8 +189,11 @@ function resetAudioSource(){
 }
 function addMediaEvents(){
     audio.addEventListener('ended', endedMedia);
+	video.addEventListener('ended', endedMedia);
+	
 }
 function endedMedia(){
+	//alert("Media Ended");
     reSetTableRow(currentSongNumber);
     if(playing){
         if((!repeatbutton)&&(currentSongNumber==(files.length-1))){
@@ -253,7 +264,7 @@ function setFile(file){
             
         }
         else{
-            alert("contains"+file[i].name);
+            console.log("Duplicate file "+file[i].name);
         }
     }
     songListArray=createArray(files.length);
@@ -428,6 +439,7 @@ function playSong(item){
         resetAudioSource(); 
         currentSongNumber=temp;
         play();
+		
     }
     
 //alert("Song is"+songListArray[temp].name);
