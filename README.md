@@ -19,7 +19,7 @@ This is a mediaplayer that you don't need any mediaplayer software (Eg: Windows 
 
 This Program needs only a web browser.
 
-Working perfect on chrome and firefox.
+Working perfect on chrome and firefox. (Minimum required display width for better view is 355px )
 
 Just download the code and run index.html
 
