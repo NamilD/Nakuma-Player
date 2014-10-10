@@ -26,13 +26,16 @@
 				<div class="navbar-header">
 					<a href="#" class="navbar-brand">Nakuma Player</a>
 					<button class="navbar-toggle nav-tabs" data-toggle="collapse" data-target=".navHeaderCollapse">
-						<span class="glyphicon glyphicon-th-large"></span>
+						<span class="glyphicon glyphicon-tasks"></span>
 					</button>
 					
 					<button class="navbar-toggle nav-tabs hidden-lg hidden-md " data-toggle="collapse" data-target=".navPlayListCollapse">
-						<span class="glyphicon glyphicon-tasks"></span> 
+						<span class="glyphicon glyphicon-list-alt"></span> 
 					</button>
-
+					
+					<button class="navbar-toggle nav-tabs hidden-lg hidden-md " data-toggle="collapse" data-target=".navPlayerButtonsCollapse">
+						<span class="glyphicon glyphicon-cog"></span> 
+					</button>
 					
 				</div>
 			
@@ -48,6 +51,13 @@
                         <li>No songs in the playlist yet.</li>
                     </ul>
                 </div>
+				
+				<div  class="collapse navbar-collapse navPlayerButtonsCollapse hidden-lg hidden-md">
+                    <ul class="nav navbar-btn  hidden-lg hidden-md hidden-sm ">
+						<li><input type="checkbox" id="btn-repeat" name="my-checkbox" data-size="mini" data-label-text="<span class='glyphicon glyphicon-repeat'></span>"></li>
+						<li><input type="checkbox" id="btn-shuffle" name="my-checkbox" data-size="mini" data-label-text="<span class='glyphicon glyphicon-random'></span>"></li>
+					</ul>
+                </div>
             </div>
         </nav>
     
@@ -61,7 +71,7 @@
 					<div class="container">
 
 						<div class="row">
-							<div class="col-md-3 col-sm-4 col-xs-8">
+							<div class="col-md-3 col-sm-4 col-xs-7">
 								<div class="btn-toolbar" role="toolbar">
 									<div class="nav btn-group">
 										<button type="button" id="btn-step-backward" class="navbar-btn btn btn-default btn-lg">
@@ -99,18 +109,18 @@
 									</span>
 								</ul>
 							</div>
-							<div class="col-md-1 col-sm-1 col-xs-1 nav navbar-btn ">
-							<div class="btn-group">
-									<button type="button" id="btn-open" class="navbar-btn btn btn-default btn-md">
+							<div class="col-md-1 col-sm-2 col-xs-3 nav navbar-btn ">
+								<div class="nav btn-group">
+									<button type="button" id="btn-open"  class="navbar-btn btn btn-default btn-md">
 										<span class="glyphicon glyphicon-open"></span>
 									</button>
-									<input id="input-file" type="file" multiple="true" style="visibility: hidden; widows: 0;height: 0">
 									<button  type="button" class="navbar-btn btn btn-default btn-md" onclick="toggleFullScreen()">
 										<span class="glyphicon glyphicon-fullscreen"></span>
 									</button>
 								</div>
+								<input id="input-file" type="file" multiple="true" style="visibility: hidden; widows: 0;height: 0">
 							</div>
-							<div class="col-md-1 col-sm-2 col-xs-3">
+							<div class="col-md-1 col-sm-2 hidden-xs">
 								<ul class="nav navbar-btn ">
 									<li><input type="checkbox" id="btn-repeat" name="my-checkbox" data-size="mini" data-label-text="<span class='glyphicon glyphicon-repeat'></span>"></li>
 									<li><input type="checkbox" id="btn-shuffle" name="my-checkbox" data-size="mini" data-label-text="<span class='glyphicon glyphicon-random'></span>"></li>
@@ -124,7 +134,6 @@
 							<div class="col-md-2 visible-lg">
 								<ul class="nav navbar-nav navbar-right">
 									<li><a id="media-title" ></a></li>
-
 								</ul>
 							</div>
 						</div>
