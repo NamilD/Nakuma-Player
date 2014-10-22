@@ -23,7 +23,7 @@ Working perfect on chrome and firefox.
 
 Just download the code and run index.html
 
-Note that the version 2.0 supports only for mp3 and mp4 files.Enjoy!
+Version 3.0 supports for mp3 and mp4 files.Enjoy!
 
 Bootstrap is used to build the user interface, check out <http://getbootstrap.com>!
 
